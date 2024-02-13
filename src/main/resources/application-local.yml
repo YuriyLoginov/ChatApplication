@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  liquibase:
+    enabled: false
+    change-log: db/changelog/db.changelog-maser.yml
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ChatApp
+    username: postgres
+    password: root
+    name: ChatApp
+
+  sql:
+    init:
+      mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
