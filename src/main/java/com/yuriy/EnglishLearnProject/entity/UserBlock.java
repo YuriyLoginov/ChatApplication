@@ -1,5 +1,6 @@
 package com.yuriy.EnglishLearnProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,24 +11,27 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "message")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Message {
+public class UserBlock {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date sendDateTime;
+    @Column(name = "block_time", nullable = false)
+    private Date blocDateTime;
 
-    private String message;
+    @Column(name = "duration", nullable = false)
+    private Long duration;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User sender;
+    @Column
+    private Boolean status;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "isBlocked", fetch = FetchType.LAZY)
+    private List<User> users;
 }

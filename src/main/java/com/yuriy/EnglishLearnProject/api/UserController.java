@@ -1,7 +1,8 @@
-package com.yuriy.EnglishLearnProject.controller;
+package com.yuriy.EnglishLearnProject.api;
 
 import com.yuriy.EnglishLearnProject.entity.User;
 import com.yuriy.EnglishLearnProject.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     @Autowired
     public UserController(UserServiceImpl userService) {
@@ -28,8 +29,8 @@ public class UserController {
         userService.delete(id);
     }
 
-    @GetMapping()
-    public User getUser(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 

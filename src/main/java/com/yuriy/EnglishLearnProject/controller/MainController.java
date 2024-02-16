@@ -12,4 +12,11 @@ public class MainController {
         model.addAttribute("TEST");
         return "home";
     }
+
+    @GetMapping("/users")
+    public String users() {
+        return "users";
+    }
+
+
 }
