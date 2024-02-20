@@ -22,17 +22,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).orElseThrow();
-        }
-        throw new UserNotFoundException("User does not exist!");
+        return userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User with id: " + id + " not found!"));
     }
 
     @Override
     public User saveUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent() && userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new UserAlreadyExistException("User already exist!");
-        }
         return userRepository.save(user);
     }
 

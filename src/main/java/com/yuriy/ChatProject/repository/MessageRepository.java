@@ -16,4 +16,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query(value = "SELECT * FROM message WHERE user_id = id",
             nativeQuery = true)
     List<Message> findByUserId(@Param("id") Long id);
+
+    @Query(value = "SELECT * FROM message WHERE chat_id = id",
+            nativeQuery = true)
+    List<Message> findByChatId(@Param("id") Long id);
 }

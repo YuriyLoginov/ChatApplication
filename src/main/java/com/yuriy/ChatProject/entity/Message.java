@@ -1,5 +1,6 @@
 package com.yuriy.ChatProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,8 @@ public class Message {
     @JoinColumn(name = "user_id", nullable = false)
     private User sender;
 
-    @ManyToMany(mappedBy = "messages")
-    private List<Chat> chats;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_id")
+    private Chat chats;
 }

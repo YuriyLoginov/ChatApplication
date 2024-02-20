@@ -19,6 +19,12 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String name;
+
+    @Column
+    private Long usersCount;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinTable(
             name = "user_chat",
@@ -26,11 +32,6 @@ public class Chat {
             inverseJoinColumns = @JoinColumn(name = "user_data_id"))
     private Set<User> users;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Message.class)
-    @JoinTable(
-            name = "message_chat",
-            joinColumns = @JoinColumn(name = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "message_id")
-    )
+    @OneToMany(mappedBy = "chats", fetch = FetchType.LAZY)
     private List<Message> messages;
 }

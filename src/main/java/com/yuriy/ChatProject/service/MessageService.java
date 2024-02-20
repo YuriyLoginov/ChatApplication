@@ -10,4 +10,10 @@ public interface MessageService {
     List<Message> getAllByUserId(Long id);
 
     List<Message> getAll();
+
+    List<Message> getAllByChatId(Long id);
+
+    Message saveMessage(Message message);
+
+    void deleteById(Long id);
 }
