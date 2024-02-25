@@ -1,32 +1,29 @@
 package com.yuriy.ChatProject.controller.api;
 
-import com.yuriy.ChatProject.dto.user.UserRegistrationDTO;
+import com.yuriy.ChatProject.dto.UserDTO;
 import com.yuriy.ChatProject.entity.User;
-import com.yuriy.ChatProject.mappers.UserMapper;
-import com.yuriy.ChatProject.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yuriy.ChatProject.mapper.UserMapper;
+import com.yuriy.ChatProject.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
-    @Autowired
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
 
     @PostMapping
-    public UserRegistrationDTO registration(@RequestBody User user){
-        return UserMapper.INSTANCE.toRegistrationDTO(userService.saveUser(user));
+    public UserDTO registration(@RequestBody UserDTO user){
+        return userService.saveUser(user);
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAll();
     }
 
@@ -36,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
 

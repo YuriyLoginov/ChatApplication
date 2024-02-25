@@ -1,49 +1,46 @@
 package com.yuriy.ChatProject.service.impl;
 
-import com.yuriy.ChatProject.entity.Chat;
-import com.yuriy.ChatProject.entity.User;
+import com.yuriy.ChatProject.dto.UserDTO;
 import com.yuriy.ChatProject.exception.user.UserNotFoundException;
+import com.yuriy.ChatProject.mapper.UserMapper;
 import com.yuriy.ChatProject.repository.UserRepository;
 import com.yuriy.ChatProject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Override
+    public UserDTO findById(Long id) {
+        return userMapper.toDTO(userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User with id: " + id + " not found!")));
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("User with id: " + id + " not found!"));
-    }
-
-    @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public UserDTO saveUser(UserDTO user) {
+        return userMapper.toDTO(userRepository.save(userMapper.toEntity(user)));
     }
 
     @Override
     public void delete(Long id) {
         userRepository.delete(userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("User with id:"  + id +  "not found!")));
+                () -> new UserNotFoundException("User with id:" + id + "not found!")));
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDTO> getAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Chat> getChatsByUserId() {
-        return null;
-    }
 }

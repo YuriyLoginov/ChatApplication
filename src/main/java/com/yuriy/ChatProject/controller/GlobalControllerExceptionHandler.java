@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
 
-    /*@ExceptionHandler(value = {UserNotFoundException.class})
+    @ExceptionHandler(value = {UserNotFoundException.class})
     public ResponseEntity<DefaultError> handleUserNotFoundException(UserNotFoundException e) {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new DefaultError(
@@ -30,5 +30,5 @@ public class GlobalControllerExceptionHandler {
                 HttpStatus.FORBIDDEN.value(),
                 e.getMessage()), HttpStatus.FORBIDDEN
         );
-    }*/
+    }
 }

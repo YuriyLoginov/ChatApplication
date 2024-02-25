@@ -1,6 +1,6 @@
 package com.yuriy.ChatProject.controller;
 
-import com.yuriy.ChatProject.dto.user.UserRegistrationDTO;
+import com.yuriy.ChatProject.entity.User;
 import com.yuriy.ChatProject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model, UserRegistrationDTO userRegistrationDTO) {
+    public String registration(Model model, User user) {
 
         return "registration";
     }

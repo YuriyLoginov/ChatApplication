@@ -12,10 +12,11 @@ import java.util.Optional;
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     Optional<Chat> findByName(String name);
-    @Query(value = "SELECT * FROM chat " +
-            "INNER JOIN public.user_chat uc " +
-            "on chat.id = uc.chat_id " +
-            "WHERE user_data_id = ?1",
-            nativeQuery = true)
+    @Query(value = """
+            SELECT * FROM chat
+            INNER JOIN public.user_chat uc
+            on chat.id = uc.chat_id
+            WHERE user_data_id = ?1
+            """, nativeQuery = true)
     List<Chat> findAllByUserId(Long id);
 }
