@@ -1,4 +1,4 @@
-package com.yuriy.ChatProject.controller;
+package com.yuriy.ChatProject.controller.api;
 
 import com.yuriy.ChatProject.entity.Message;
 import com.yuriy.ChatProject.service.impl.MessageServiceImpl;
@@ -18,23 +18,14 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/message")
+    @PostMapping
     public Message sendMessage(@RequestBody Message message) {
         return messageService.saveMessage(message);
     }
+
     @GetMapping
     public List<Message> getAll() {
         return messageService.getAll();
-    }
-
-    @GetMapping("/user/{id}")
-    public List<Message> getAllByUserId(@PathVariable Long id) {
-        return messageService.getAllByUserId(id);
-    }
-
-    @GetMapping("/chat/{id}")
-    public List<Message> getAllByChatId(@PathVariable Long id) {
-        return messageService.getAllByChatId(id);
     }
 
     @GetMapping("/{id}")
@@ -42,8 +33,8 @@ public class MessageController {
         return messageService.getById(id);
     }
 
-    @DeleteMapping()
-    public void delete(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         messageService.deleteById(id);
     }
 }

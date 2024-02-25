@@ -22,10 +22,8 @@ public class Chat {
     @Column
     private String name;
 
-    @Column
-    private Long usersCount;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinTable(
             name = "user_chat",
             joinColumns =@JoinColumn(name = "chat_id"),

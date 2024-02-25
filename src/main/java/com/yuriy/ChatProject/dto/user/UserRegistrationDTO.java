@@ -1,16 +1,14 @@
 package com.yuriy.ChatProject.dto.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class UserRegistrationDTO {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String username;
-    private String password;
+     private String firstName;
+     private String lastName;
+     private String email;
+     private String username;
+     private String password;
 }

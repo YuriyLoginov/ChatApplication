@@ -1,4 +1,4 @@
-package com.yuriy.ChatProject.exception;
+package com.yuriy.ChatProject.exception.user;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(String message) {

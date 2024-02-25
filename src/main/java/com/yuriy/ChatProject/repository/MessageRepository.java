@@ -13,11 +13,11 @@ import java.util.Optional;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     Optional<Message> findById(Long id);
 
-    @Query(value = "SELECT * FROM message WHERE user_id = id",
+    @Query(value = "SELECT * FROM message WHERE user_id = ?1",
             nativeQuery = true)
     List<Message> findByUserId(@Param("id") Long id);
 
-    @Query(value = "SELECT * FROM message WHERE chat_id = id",
+    @Query(value = "SELECT * FROM message WHERE chat_id = ?1",
             nativeQuery = true)
     List<Message> findByChatId(@Param("id") Long id);
 }

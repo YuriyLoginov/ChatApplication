@@ -1,8 +1,8 @@
 package com.yuriy.ChatProject.service.impl;
 
+import com.yuriy.ChatProject.entity.Chat;
 import com.yuriy.ChatProject.entity.User;
-import com.yuriy.ChatProject.exception.UserAlreadyExistException;
-import com.yuriy.ChatProject.exception.UserNotFoundException;
+import com.yuriy.ChatProject.exception.user.UserNotFoundException;
 import com.yuriy.ChatProject.repository.UserRepository;
 import com.yuriy.ChatProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        if (userRepository.findById(id).isEmpty()) {
-            throw new UserNotFoundException("User does not exist!");
-        }
-        userRepository.delete(userRepository.findById(id).orElseThrow());
+        userRepository.delete(userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User with id:"  + id +  "not found!")));
     }
 
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<Chat> getChatsByUserId() {
+        return null;
     }
 }
